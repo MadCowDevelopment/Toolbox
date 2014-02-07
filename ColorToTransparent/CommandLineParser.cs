@@ -50,8 +50,9 @@ namespace ColorToTransparent
                     return Color.FromArgb(splitColors[0], splitColors[1], splitColors[2]);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                ConsoleOutput.PrintError("Exception: {0}", e.Message);
             }
 
             return Color.Empty;
