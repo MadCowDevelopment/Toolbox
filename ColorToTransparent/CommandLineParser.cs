@@ -8,6 +8,11 @@ namespace ColorToTransparent
 {
     internal class CommandLineParser
     {
+        private static readonly List<string> SupportedFileTypes = new List<string>
+        {
+            "BMP", "GIF", "EXIF", "JPG", "PNG", "TIFF"
+        };
+
         public ConverterOptions ParseCommandLine(string[] args)
         {
             if (args.Length < 2)
@@ -70,7 +75,7 @@ namespace ColorToTransparent
                 return
                     new List<string>(
                         Directory.EnumerateFiles(source, "*", SearchOption.AllDirectories)
-                            .Where(file => file.ToLower().EndsWith(".png")));
+                            .Where(file => SupportedFileTypes.Any(fileType => file.ToUpper().EndsWith(fileType))));
             }
 
             return new List<string>();
