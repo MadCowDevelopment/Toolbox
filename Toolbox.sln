@@ -1,9 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorToTransparent", "ColorToTransparent\ColorToTransparent.csproj", "{13B43E45-0B73-410A-85F7-BC1A571573B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OctgnImagePackCreator", "OctgnImagePackCreator\OctgnImagePackCreator.csproj", "{9B3BA549-E0BB-472C-9832-DC6104E8450F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1B6BD6D0-CFAD-4B24-BCC5-B1DB7A6017BB}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +24,10 @@ Global
 		{13B43E45-0B73-410A-85F7-BC1A571573B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13B43E45-0B73-410A-85F7-BC1A571573B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13B43E45-0B73-410A-85F7-BC1A571573B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B3BA549-E0BB-472C-9832-DC6104E8450F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B3BA549-E0BB-472C-9832-DC6104E8450F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B3BA549-E0BB-472C-9832-DC6104E8450F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B3BA549-E0BB-472C-9832-DC6104E8450F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
