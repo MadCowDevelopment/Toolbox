@@ -39,7 +39,7 @@ namespace OctgnImagePackCreator
         private static string CreateTempFolders(XmlSetInfo xmlInfo)
         {
             Directory.CreateDirectory(Path.Combine(Constants.TempPath, xmlInfo.GameId));
-            var cardsPath = Path.Combine(Constants.TempPath, xmlInfo.GameId, xmlInfo.SetId, "Cards");
+            var cardsPath = Path.Combine(Constants.TempPath, xmlInfo.GameId, "Sets", xmlInfo.SetId, "Cards");
             Directory.CreateDirectory(cardsPath);
             return cardsPath;
         }
