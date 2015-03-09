@@ -11,29 +11,51 @@ namespace OctgnImagePackCreator
 {
     internal class DownloadSetCommand : Command
     {
-        private readonly string _setCode;
+        private readonly List<string> _setCodes;
 
         public DownloadSetCommand(string setCode)
         {
-            _setCode = setCode;
+            _setCodes = new List<string> { setCode };
+        }
+
+        public DownloadSetCommand(IEnumerable<string> setCodes)
+        {
+            _setCodes = new List<string>(setCodes);
         }
 
         public override void Execute()
         {
             try
             {
-                Console.WriteLine("Creating set '{0}'...", _setCode);
-                var set = FindSet();
-                var xmlInfo = ParseSetXml(set.Name);
-                var cardsPath = CreateTempFolders(xmlInfo);
-                DownloadImages(xmlInfo.Cards, cardsPath);
-                CreateImagePack(set);
+                foreach (var setCode in _setCodes)
+                {
+                    try
+                    {
+                        CreateSet(setCode);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        Console.WriteLine("An error occurred while creating set '{0}': {1}", setCode);
+                    }
+                }
+
+                var imagePackName = _setCodes.Count == 1 ? FindSet(_setCodes[0]).Name : "all";
+                CreateImagePack(imagePackName);
             }
             finally
             {
-                if (Directory.Exists(Constants.TempPath)) 
+                if (Directory.Exists(Constants.TempPath))
                     Directory.Delete(Constants.TempPath, true);
             }
+        }
+
+        private void CreateSet(string setCode)
+        {
+            Console.WriteLine("Creating set '{0}'...", setCode);
+            var set = FindSet(setCode);
+            var xmlInfo = ParseSetXml(set.Name);
+            var cardsPath = CreateTempFolders(xmlInfo);
+            DownloadImages(xmlInfo.Cards, cardsPath);
         }
 
         private static string CreateTempFolders(XmlSetInfo xmlInfo)
@@ -55,15 +77,15 @@ namespace OctgnImagePackCreator
             return new XmlSetInfo(gameId, setId, cards);
         }
 
-        private AnrSet FindSet()
+        private AnrSet FindSet(string setCode)
         {
             var sets =
                     JsonConvert.DeserializeObject<IEnumerable<AnrSet>>(
                         File.ReadAllText(Constants.SetsFile));
-            var set = sets.FirstOrDefault(s => s.Code == _setCode);
+            var set = sets.FirstOrDefault(s => s.Code == setCode);
             if (set == null)
             {
-                throw new InvalidOperationException(string.Format("Could not find set with code '{0}'.", _setCode));
+                throw new InvalidOperationException(string.Format("Could not find set with code '{0}'.", setCode));
             }
 
             return set;
@@ -80,12 +102,12 @@ namespace OctgnImagePackCreator
 
             public string GameId { get; private set; }
             public string SetId { get; private set; }
-            public IEnumerable<XElement> Cards { get; private set; } 
+            public IEnumerable<XElement> Cards { get; private set; }
         }
 
-        private static void CreateImagePack(AnrSet set)
+        private static void CreateImagePack(string name)
         {
-            var zipFileName = set.Name + ".o8c";
+            var zipFileName = name + ".o8c";
             File.Delete(zipFileName);
             ZipFile.CreateFromDirectory(Constants.TempPath, zipFileName);
         }

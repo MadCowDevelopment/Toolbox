@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnrCard.cs" />
     <Compile Include="AnrSet.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Constants.cs" />

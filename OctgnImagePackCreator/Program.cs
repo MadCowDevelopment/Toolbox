@@ -11,7 +11,7 @@ namespace OctgnImagePackCreator
             {
                 InitializeEnvironment();
 
-                var command = ParseArgs(new[] { Constants.Download, "uao" });
+                var command = ParseArgs(args);
                 command.Execute();
             }
             catch (Exception e)

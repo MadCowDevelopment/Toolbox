@@ -13,16 +13,14 @@ namespace OctgnImagePackCreator
             var sets =
                 JsonConvert.DeserializeObject<IEnumerable<AnrSet>>(
                     File.ReadAllText(Constants.SetsFile));
-            foreach (var anrSet in sets.Where(p=>p.Available != null))
+
+            try
             {
-                try
-                {
-                    new DownloadSetCommand(anrSet.Code).Execute();
-                }
-                catch (InvalidOperationException e)
-                {
-                    Console.WriteLine("Error: {0}", e.Message);
-                }
+                new DownloadSetCommand(sets.Where(p => p.Available != null).Select(p => p.Code)).Execute();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("Error: {0}", e.Message);
             }
         }
     }

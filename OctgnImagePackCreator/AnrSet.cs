@@ -13,10 +13,4 @@ namespace OctgnImagePackCreator
         public int Total { get; set; }
         public Uri Url { get; set; }
     }
-
-    public class AnrCard
-    {
-        public string Title { get; set; }
-        public Uri ImageSrc { get; set; }
-    }
 }
